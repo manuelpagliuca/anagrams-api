@@ -1,6 +1,6 @@
 const anagrams = [{
-    id: "1",
-    string: "Elvis"
+    string1: "1",
+    string2: "Elvis"
 }]
 
 module.exports = {
