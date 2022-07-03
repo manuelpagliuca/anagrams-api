@@ -5,9 +5,10 @@ function removePunctuation(sentence) {
 
 function searchAnagramInArray(string, array) {
     let outcome = [];
+
     for (let word of array) {
         if (areAnagrams(string, word)) {
-            outcome.push(string, word);
+            outcome.push(word);
         }
     }
     return outcome;
@@ -25,7 +26,7 @@ function areAnagrams(string1, string2) {
     let len1 = str1.length;
     let len2 = str2.length;
 
-    if (str1 == str2 || len1 == 1 || len2 == 2 || len1 != len2) {
+    if (len1 == 1 || len2 == 2 || len1 != len2) {
         return false;
     }
 
@@ -53,24 +54,23 @@ function searchAnagramInSentence(string, sentence) {
         return false;
     }
     sentence = removePunctuation(sentence);
-    let words = sentence.split(" ");
-    let outcome = searchAnagramInArray(string, words);
+    let words = sentence.toLocaleLowerCase().split(" ");
+    let anagrams = searchAnagramInArray(string, words);
 
-    return outcome;
+    return anagrams;
 }
 
 function anagramsInSentence(sentence) {
     sentence = removePunctuation(sentence);
 
     const possibleAnagrams = sentence.split(" ");
-    let words = sentence.split(" ");
+    let words = sentence.toLocaleLowerCase().split(" ");
 
     let outcome = [];
 
     for (let possibleAnagram of possibleAnagrams) {
         let anagrams = searchAnagramInArray(possibleAnagram, words);
-
-        if (!(anagrams.length == 0)) {
+        if (anagrams.length > 1) {
             words = words.filter(x => !anagrams.includes(x));
             possibleAnagram = words.filter(x => !anagrams.includes(x));
             outcome.push(anagrams);
