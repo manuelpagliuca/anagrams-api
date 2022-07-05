@@ -6,6 +6,9 @@ function removePunctuation(sentence) {
 function searchAnagramInArray(string, array) {
     let outcome = [];
 
+    if (String(string).length == 0 || String(array).length == 0)
+        return outcome;
+
     for (let word of array) {
         if (areAnagrams(string, word)) {
             outcome.push(word);
@@ -14,7 +17,8 @@ function searchAnagramInArray(string, array) {
     return outcome;
 }
 
-// Exported functions
+// API Functions
+/// Endpoint A
 function areAnagrams(string1, string2) {
     if (!string1 || !string2) {
         return false;
@@ -49,6 +53,7 @@ function areAnagrams(string1, string2) {
     return true;
 }
 
+/// Endpoint B
 function searchAnagramInSentence(string, sentence) {
     if (!string || !sentence) {
         return false;
@@ -60,13 +65,18 @@ function searchAnagramInSentence(string, sentence) {
     return anagrams;
 }
 
-function anagramsInSentence(sentence) {
-    sentence = removePunctuation(sentence);
+/// Endpoint C
+// Brute force approach, time complexity O(N^3), space complexity > O(N^2)
+function anagramsInSentenceNaive(sentence) {
+    let outcome = [];
+
+    if (String(sentence).length == 0)
+        return outcome;
+
+    sentence = removePunctuation(sentence).toLowerCase();
 
     const possibleAnagrams = sentence.split(" ");
-    let words = sentence.toLocaleLowerCase().split(" ");
-
-    let outcome = [];
+    let words = sentence.split(" ");
 
     for (let possibleAnagram of possibleAnagrams) {
         let anagrams = searchAnagramInArray(possibleAnagram, words);
@@ -80,8 +90,79 @@ function anagramsInSentence(sentence) {
     return outcome;
 }
 
+/* Approach categorizing by sorted anagram
+    - time complexity O(NW*LOG W)
+    - space complexity is linear O(NW)
+    Where :
+        N = length of sentence
+        W = length of single words */
+function anagramsInSentenceLogN(sentence) {
+    let outcome = {};
+
+    if (String(sentence).length == 0)
+        return outcome;
+
+    sentence = removePunctuation(sentence).toLocaleLowerCase().split(" ");
+
+    for (let word of sentence) {
+        let key = word.split('').sort().join('');
+        if (!outcome[key])
+            outcome[key] = [];
+        outcome[key].push(word);
+    }
+
+    // Deleting not relevant clusters (single element and single character)
+    for (let elem in outcome) {
+        if (outcome[elem].length < 2 || elem.length == 1)
+            delete outcome[elem];
+    }
+
+    return outcome;
+}
+
+/* Approach categorizing by counting
+    - time complexity O(N*W)
+    - space complexity O(N + 26)
+    Where :
+        N = length of sentence
+        W = length of single words */
+function anagramsInSentenceN(sentence) {
+    const outcome = new Map();
+
+    if (String(sentence).length == 0)
+        return Array.from(outcome.values());
+
+    sentence = removePunctuation(sentence).toLowerCase().split(" ");
+    const ASCII_CHAR_OFFSET = 97;
+
+    for (let word of sentence) {
+        const count = Array(26).fill(0);
+
+        for (let i = 0; i < word.length; ++i)
+            count[word.charCodeAt(i) - ASCII_CHAR_OFFSET] += 1;
+
+        const anagramId = count.join('');
+
+        if (outcome.has(anagramId))
+            outcome.get(anagramId).push(word);
+        else
+            outcome.set(anagramId, [word]);
+    }
+
+    // Deleting not relevant clusters (single element and single character)
+    outcome.forEach((value, key, map) => {
+        if (value[0].length == 1 || value.length == 1)
+            outcome.delete(key);
+    });
+
+    return Array.from(outcome.values());
+}
+
+// Approach by counting the existence of letters
 module.exports = {
     areAnagrams,
     searchAnagramInSentence,
-    anagramsInSentence
+    anagramsInSentenceNaive,
+    anagramsInSentenceLogN,
+    anagramsInSentenceN
 }

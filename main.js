@@ -21,6 +21,7 @@ app.post('/A/', (req, res) => {
 
 app.post('/B/', (req, res) => {
     let keys = Object.keys(req.body);
+
     if (keys.length == 2) {
         let anagrams = api_anagrams.searchAnagramInSentence(req.body[keys[0]], req.body[keys[1]]);
         res.status(200).json({
@@ -35,8 +36,9 @@ app.post('/B/', (req, res) => {
 
 app.post('/C/', (req, res) => {
     let keys = Object.keys(req.body);
+
     if (keys.length == 1) {
-        let arrayOfAnagrams = api_anagrams.anagramsInSentence(req.body[keys[0]]);
+        let arrayOfAnagrams = api_anagrams.anagramsInSentenceN(req.body[keys[0]]);
         res.status(200).json({
             outcome: arrayOfAnagrams
         });
