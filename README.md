@@ -16,11 +16,12 @@ Now the server is listening on port `3000` of the `localhost`.
 ## Test with Postman
 When opening Postman, we open a new table and select **POST** as the HTTP request.
 
-We enter the address of the web application that should be one between : 
+We enter the address of the web application, which must be one of :
 * `anagramsapi.herokuapp.com`
 * `localhost:3000`
-followed by a slash `/` with the desired endpoint between *A*, *B* and *C*.
-    
+
+Followed by a slash `/` with the desired endpoint between *A*, *B* and *C*.
+
 In this case we consider the *C* endpoint, select the table "*Body*" and use the "*raw*" format to compile the request (with *JSON* formatting). Once the request is filled out, it is sent with the "SEND" button.
 
 ![text](imgs/postman1.jpg)
