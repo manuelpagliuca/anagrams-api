@@ -1,5 +1,5 @@
 # Anagrams API
-## Assignment for Verve Ventures.
+## Assignment for Verve Ventures
 
 The task is to make an API that identifies anagrams between individual words and sentences. The different server functionalities will be exposed through three endpoints A, B and C.
 
@@ -29,3 +29,68 @@ If the address entered is valid and the server is working, then we will receive 
 Also in the same response window you can see some relevant technical details such as the response code, response time, and message size.
 
 ![text](imgs/postman3.jpg)
+
+### POST request examples
+#### Endpoint A
+For the POST request :
+```json
+{
+    "string1": "Elvis",
+    "string2": "lives"
+}
+```
+The outcome should be :
+```json
+{
+    "outcome": true
+}
+```
+#### Endpoint B
+For the POST request :
+```json
+{
+    "str1": "elvis",
+    "str2": "Elvis lives in a house"
+}
+```
+The outcome should be :
+```json
+{
+    "outcome": [
+        "elvis",
+        "lives"
+    ]
+}
+```
+#### Endpoint C
+For the POST request :
+```json
+{
+    "string": "Elvis silve lives without veils in a house with Ash. His cat can act. He has a study that’s dusty"
+}
+```
+The outcome should be :
+```json
+{
+    "outcome": [
+        [
+            "elvis",
+            "silve",
+            "lives",
+            "veils"
+        ],
+        [
+            "ash",
+            "has"
+        ],
+        [
+            "cat",
+            "act"
+        ],
+        [
+            "study",
+            "dusty"
+        ]
+    ]
+}
+```
