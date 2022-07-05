@@ -10,13 +10,17 @@ Just go to the root folder of the project with the terminal and run the followin
 
 `node ./main.js`
 
-Now the server is listening on port 3000 of the localhost.
-* In case you use the web application through *heroku*, then their port will be used.
+Now the server is listening on port `3000` of the `localhost`.
+* In case you use the web application through *heroku* (at `anagramsapi.herokuapp.com`), then their port will be used.
 
 ## Test with Postman
 When opening Postman, we open a new table and select **POST** as the HTTP request.
 
-We enter the address and follow it with a slash `/` with a desired endpoint between *A*, *B* and *C*.
+We enter the address of the web application, which must be one of :
+* `anagramsapi.herokuapp.com`
+* `localhost:3000`
+
+Followed by a slash `/` with the desired endpoint between *A*, *B* and *C*.
 
 In this case we consider the *C* endpoint, select the table "*Body*" and use the "*raw*" format to compile the request (with *JSON* formatting). Once the request is filled out, it is sent with the "SEND" button.
 
