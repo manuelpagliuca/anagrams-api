@@ -91,8 +91,8 @@ function anagramsInSentenceNaive(sentence) {
 }
 
 /* Approach categorizing by sorted anagram
-    - time complexity O(NW*LOG W)
-    - space complexity is linear O(NW)
+    - time complexity O(N * W * LOG W) = O(N * LOG W)
+    - space complexity is linear O(NW) = O(N)
     Where :
         N = length of sentence
         W = length of single words */
@@ -121,8 +121,8 @@ function anagramsInSentenceLogN(sentence) {
 }
 
 /* Approach categorizing by counting
-    - time complexity O(N*W)
-    - space complexity O(N + 26)
+    - time complexity O(N*W) = O(N)
+    - space complexity O(N + 26) = O(N)
     Where :
         N = length of sentence
         W = length of single words */
